@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SNT: Liquid Glass</title>
+    <!-- Link to the custom styles -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Link to a modern font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Removed GSAP Library link -->
+  </head>
+  <body>
+    <!-- Background element for visual depth -->
+    <div class="background-elements"></div>
+
+    <!-- Main Application Container -->
+    <div id="app" class="app">
+      <!-- Header Section (Clock, Greeting) -->
+      <header class="header" id="header-section">
+        <h1
+          id="greeting-text"
+          class="greeting"
+          aria-live="polite"
+          role="status"
+        >
+          Good day
+        </h1>
+        <div id="clock" class="clock" aria-live="polite" role="timer"></div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="main-grid">
+        <!-- Search Bar Panel -->
+        <section class="panel search-panel" id="search-section">
+          <form id="search-form" class="search-form">
+            <input
+              id="search-input"
+              type="search"
+              placeholder="Search the web..."
+              class="input-field"
+              aria-label="Search input"
+            />
+            <select
+              id="search-engine"
+              class="input-field"
+              aria-label="Search engine selector"
+            >
+              <option value="https://www.google.com/search?q=">Google</option>
+              <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+              <option value="https://www.bing.com/search?q=">Bing</option>
+            </select>
+            <button type="submit" class="btn">Go</button>
+          </form>
+        </section>
+
+        <!-- Shortcuts Panel -->
+        <section class="panel shortcuts-panel" id="shortcuts-section">
+          <h2>Shortcuts</h2>
+          <div id="shortcut-list" class="tiles">
+            <!-- Shortcuts rendered here by JS -->
+          </div>
+          <form id="add-shortcut-form" class="inline-form add-form">
+            <input
+              id="shortcut-name"
+              placeholder="Name"
+              required
+              class="input-field small"
+              aria-label="Shortcut name"
+            />
+            <input
+              id="shortcut-url"
+              placeholder="URL (e.g., example.com)"
+              type="url"
+              required
+              class="input-field small"
+              aria-label="Shortcut URL"
+            />
+            <button type="submit" class="btn small">Add</button>
+          </form>
+        </section>
+
+        <!-- To-Do List Panel -->
+        <section class="panel todo-panel" id="todo-section">
+          <h2>To-Do List</h2>
+          <form id="todo-form" class="inline-form">
+            <input
+              id="todo-input"
+              placeholder="Add a new task"
+              required
+              class="input-field"
+              aria-label="To-do input"
+            />
+            <button type="submit" class="btn small">Add</button>
+          </form>
+          <ul id="todo-list" class="todo-list">
+            <!-- To-do items will be dynamically added here -->
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

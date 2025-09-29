@@ -1,0 +1,310 @@
+/* -------- Theme Colors (Liquid Glass Palette) -------- */
+/* Accessibility: High contrast colors for visually impaired users can be added as needed. */
+:root {
+  /* Soft blue background for the body */
+  --bg-color: #e0f7fa;
+  /* Primary color for text and buttons (Deep Teal) */
+  --primary-color: #00796b;
+  /* Soft Accent (Light Aqua) */
+  --accent-color: #26c6da;
+  /* Lighter text for contrast on darker areas */
+  --text-light: #f0f0f0;
+  /* Color for the glass background (semi-transparent white) */
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  /* Border color for the glass effect (lighter) */
+  --glass-border: rgba(255, 255, 255, 0.6);
+  /* Muted color for secondary text/borders */
+  --muted-color: #90a4ae;
+}
+
+/* -------- Base Styles & Layout -------- */
+/* Accessibility: Ensure font is readable and layout is responsive. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background: var(--bg-color); /* Light blue background */
+  color: var(--primary-color);
+  padding: 30px 15px;
+  overflow: auto;
+  /* Accessibility: Ensure sufficient color contrast. */
+}
+
+/* Visual element for the background to enhance the glass effect */
+.background-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+/* ENHANCED BUBBLE 1: Larger size, deeper color, higher blur */
+.background-elements::before {
+  content: "";
+  position: absolute;
+  width: 500px; /* Increased size */
+  height: 500px; /* Increased size */
+  background: #4fc3f7; /* Deeper Blue */
+  border-radius: 50%;
+  filter: blur(50px); /* Increased blur */
+  top: 10%;
+  left: 10%;
+  opacity: 0.8;
+}
+/* ENHANCED BUBBLE 2: Larger size, deeper color, higher blur */
+.background-elements::after {
+  content: "";
+  position: absolute;
+  width: 400px; /* Increased size */
+  height: 400px; /* Increased size */
+  background: #26a69a; /* Deep Aqua/Teal */
+  border-radius: 50%;
+  filter: blur(50px); /* Increased blur */
+  bottom: 15%;
+  right: 15%;
+  opacity: 0.8;
+}
+
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 0;
+  text-align: center;
+}
+.greeting {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 800;
+  color: var(--primary-color);
+  margin: 0;
+}
+.clock {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+/* Main Grid Layout (Responsive) */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+@media (min-width: 768px) {
+  .main-grid {
+    grid-template-columns: 1fr 1.5fr;
+  }
+  .search-panel {
+    grid-column: 1 / -1;
+  }
+}
+
+/* -------- Liquid Glass Panels -------- */
+.panel {
+  /* Liquid Glass Effect */
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px); /* INCREASED BLUR for more visibility */
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+
+  padding: 25px;
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+.panel:hover {
+  background: rgba(255, 255, 255, 0.35); /* Slightly brighter on hover */
+}
+
+.panel h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+/* Forms & Inputs */
+.inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+@media (min-width: 600px) {
+  .search-form {
+    flex-direction: row;
+  }
+}
+
+.input-field {
+  padding: 12px 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  /* Glass effect for inputs */
+  background: rgba(255, 255, 255, 0.4);
+  color: var(--primary-color);
+  transition: border-color 0.3s ease, background 0.3s ease;
+  flex-grow: 1;
+  font-size: 1rem;
+}
+
+.input-field:focus {
+  outline: 2px solid var(--accent-color); /* Accessibility: visible focus indicator */
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.8); /* Solid white on focus */
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+  background: var(--primary-color);
+  color: var(--text-light);
+  white-space: nowrap;
+}
+.btn:hover {
+  background: var(--accent-color);
+  transform: scale(1.02); /* Subtle scale on hover */
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn.small {
+  padding: 10px 20px;
+}
+
+/* Icon Button (for deleting) */
+.btn-icon {
+  background: none;
+  border: none;
+  color: var(--muted-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+.btn-icon:hover {
+  color: var(--primary-color);
+  background: rgba(0, 121, 107, 0.1); /* Subtle background hover */
+}
+
+/* -------- Shortcuts (Tiles) -------- */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.tiles .tile {
+  /* Inner Glass Effect */
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--primary-color);
+  position: relative;
+  transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 15px 10px;
+  overflow: hidden;
+}
+
+.tiles .tile:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.03);
+}
+
+.tiles .tile .icon {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+
+.favicon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+/* Fallback text style */
+.favicon-text {
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  line-height: 1;
+}
+
+/* -------- To-Do List -------- */
+.todo-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 15px 0 0 0;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 121, 107, 0.1);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.todo-item:last-child {
+  border-bottom: none;
+}
+.todo-item:hover {
+  background: rgba(0, 121, 107, 0.05);
+}
+
+.task-text {
+  flex-grow: 1;
+  padding-right: 10px;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.task-text.completed {
+  text-decoration: line-through;
+  color: var(--muted-color);
+  opacity: 0.7;
+}
