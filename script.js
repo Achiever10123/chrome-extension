@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       (l =
         a >= 5 && a < 12
           ? "Good morning Silent"
-          : a >= 12 && a < 18
+          : a >= 12 && a < 18 
           ? "Good afternoon Silent"
           : a >= 18 || a < 5
           ? "Good evening Silent"
