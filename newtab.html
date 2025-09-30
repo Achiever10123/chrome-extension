@@ -31,8 +31,11 @@
           Good day
         </h1>
         <div id="clock" class="clock" aria-live="polite" role="timer"></div>
-        <button id="settings-btn" class="btn small btn-gradient" aria-label="Open Settings">⚙️ Settings</button>
-      </header>
+     <div  style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;" class="top-btns">
+     <button id="settings-btn" class="btn small btn-gradient" aria-label="Open Settings">⚙️ Settings</button>
+        <button class="btn-gradient" id="help-btn" class="btn small" aria-label="Open Help">❓ Help</button>
+     </div>
+    </header>
 
       <!-- Main Content Area -->
       <main class="main-grid">
@@ -106,6 +109,52 @@
           </ul>
         </section>
       </main>
+    </div>
+        <!-- Help Modal -->
+    <div id="help-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Help - SilentTab Extension</h2>
+        <p>Welcome to SilentTab! Here's how to use its features:</p>
+
+        <h3>1. Greeting & Clock</h3>
+        <p>Displays a personalized greeting based on the time of day and a live clock.</p>
+
+        <h3>2. Search Bar</h3>
+        <p>Type your query and select a search engine (Google, DuckDuckGo, Bing) to search the web.</p>
+        <p><strong>Tip:</strong> Press <code>/</code> on your keyboard to focus the search bar.</p>
+
+        <h3>3. Shortcuts</h3>
+        <p>Add frequently visited websites using the "Add Shortcut" form.</p>
+        <p>Hover over a shortcut tile to reveal the delete button (×).</p>
+        <p>You can add shortcuts by name and URL. The extension will try to fetch the website's favicon.</p>
+        <p><strong>Tip:</strong> Press <code>Ctrl+S</code> (or <code>Cmd+S</code> on Mac) to focus the shortcut name field.</p>
+
+        <h3>4. To-Do List</h3>
+        <p>Add tasks using the "Add" button. Click on a task to mark it as completed (strikethrough).</p>
+        <p>Hover over a task to reveal the delete button (×).</p>
+        <p><strong>Tip:</strong> Press <code>Ctrl+T</code> (or <code>Cmd+T</code> on Mac) to focus the to-do input field.</p>
+
+        <h3>5. Settings</h3>
+        <p>Click the ⚙️ Settings button to customize:</p>
+        <ul>
+          <li>Your name (for the greeting)</li>
+          <li>Default search engine</li>
+          <li>Theme (Liquid Glass, Aqua, Light, Dark)</li>
+          <li>Background (Default or Custom Image URL)</li>
+        </ul>
+
+        <h3>6. Stats</h3>
+        <p>Displays the number of shortcuts added and the number of completed/total to-dos.</p>
+
+        <h3>7. Keyboard Shortcuts</h3>
+        <ul>
+          <li><code>/</code> - Focus search bar</li>
+          <li><code>Ctrl+T</code> (or <code>Cmd+T</code>) - Focus to-do input</li>
+          <li><code>Ctrl+S</code> (or <code>Cmd+S</code>) - Focus shortcut name input</li>
+        </ul>
+
+      </div>
     </div>
     <div class="data-btn">
       <button class="btn-gradient" id="export-btn">Export Data</button>

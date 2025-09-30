@@ -16,22 +16,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchError = document.getElementById("search-error");
   const shortcutError = document.getElementById("shortcut-error");
   const todoError = document.getElementById("todo-error");
-chrome.storage.sync.get(["userName", "defaultSearch", "bgType", "bgImage"], (settings) => {
-    const defaultSearch =
-      settings.defaultSearch || "https://www.google.com/search?q=";
-    searchEngineSelect.value = defaultSearch;
-    const bgType = settings.bgType || 'default';
-    const bgImage = settings.bgImage;
+  chrome.storage.sync.get(
+    ["userName", "defaultSearch", "bgType", "bgImage"],
+    (settings) => {
+      const defaultSearch =
+        settings.defaultSearch || "https://www.google.com/search?q=";
+      searchEngineSelect.value = defaultSearch;
+      const bgType = settings.bgType || "default";
+      const bgImage = settings.bgImage;
 
-    if (bgType === 'custom' && bgImage) {
+      if (bgType === "custom" && bgImage) {
         document.body.style.backgroundImage = `url(${bgImage})`;
-        document.body.style.backgroundSize = 'cover';
-         document.body.style.backgroundPosition = 'center';
-        document.body.style.backgroundAttachment = 'fixed';
-    } else {
-      document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center";
+        document.body.style.backgroundAttachment = "fixed";
+      } else {
+        document.body.style.backgroundImage = "none";
+      }
     }
-  });
+  );
 
   document.getElementById("settings-btn").addEventListener("click", () => {
     chrome.runtime.openOptionsPage();
@@ -222,8 +225,6 @@ chrome.storage.sync.get(["userName", "defaultSearch", "bgType", "bgImage"], (set
           shortcuts.splice(index, 1);
           localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
           renderShortcuts();
-
-          
         });
 
         link.appendChild(deleteBtn);
@@ -403,3 +404,27 @@ document.getElementById("import-input").addEventListener("change", (e) => {
   };
   reader.readAsText(file);
 });
+
+const helpModal = document.getElementById("help-modal");
+const helpBtn = document.getElementById("help-btn");
+const spanClose = document.querySelector(".close");
+const body = document.body;
+
+const openModal = () => { 
+  helpModal.style.display = "block"; 
+  body.style.overflow = "hidden"; // Hide the main page scrollbar 
+   };
+
+   const closeModal = () => { 
+    helpModal.style.display = "none"; 
+    body.style.overflow = "auto";  
+    };
+
+
+helpBtn.addEventListener("click", openModal);
+
+spanClose.addEventListener("click", closeModal);
+
+window.addEventListener("click", (event) => {
+   if (event.target === helpModal) { closeModal(); } 
+  });
