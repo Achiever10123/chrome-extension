@@ -249,9 +249,7 @@ background-elements::after {
   background: rgba(255, 255, 255, 0.8);
 }
 
-/* Style the search engine dropdown specifically */
 select#search-engine {
-  /* Use the same styling as your other input fields for consistency */
   padding: 12px 20px; /* Match .input-field */
   border: 1px solid var(--glass-border); /* Match .input-field */
   border-radius: 999px; /* Match .input-field */
@@ -259,48 +257,35 @@ select#search-engine {
   color: var(--primary-color); /* Match .input-field */
   transition: border-color 0.3s ease, background 0.3s ease; /* Match .input-field */
   font-size: 1rem; /* Match .input-field */
-  /* Ensure text is not selectable */
   user-select: none;
-  /* Remove default dropdown arrow (optional, see below) */
-  appearance: none; /* Standard property */
+  appearance: menulist; /* For Firefox */
   -webkit-appearance: none; /* For older WebKit browsers */
   -moz-appearance: none; /* For older Firefox versions */
-  /* Add custom arrow (optional, see below) */
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 15px center; /* Position arrow */
   background-size: 16px; /* Size of arrow */
   padding-right: 45px; /* Make space for the arrow */
   cursor: pointer; /* Indicate it's clickable */
-  /* Ensure text alignment */
   text-align: left; /* Ensure text starts left */
   text-overflow: ellipsis; /* Add ellipsis if text overflows */
-  white-space: nowrap; /* Prevent text wrapping inside the select */
+  white-space: nowrap; 
 }
 
-/* Focus state for the search engine dropdown */
 select#search-engine:focus {
-  outline: 2px solid var(--accent-color); /* Match .input-field:focus */
-  border-color: var(--accent-color); /* Match .input-field:focus */
-  background: rgba(255, 255, 255, 0.8); /* Match .input-field:focus */
+  outline: 2px solid var(--accent-color); 
+  border-color: var(--accent-color); 
+  background: rgba(255, 255, 255, 0.8); 
 }
 
-/* Hover state for the search engine dropdown */
 select#search-engine:hover {
-  /* You can add hover effects here if desired, similar to focus */
-  /* For example, a slight change in background: */
-  background: rgba(255, 255, 255, 0.55); /* Slightly lighter than default */
+  background: rgba(255, 255, 255, 0.55); 
 }
 
-/* Optional: Style the dropdown options (limited support) */
-/* Note: Styling options heavily depends on the browser and is not fully standardized */
-/* This might work in some browsers but not consistently across all */
 select#search-engine option {
-  background-color: var(--glass-bg); /* Use panel background */
-  color: var(--primary-color); /* Use primary text color */
-  /* Padding might not work consistently */
-  /* padding: 5px; */
-  /* Font styles usually work */
+  background-color: var(--glass-bg); 
+  color: var(--primary-color); 
+   padding: 5px; 
   font-size: 0.9rem;
 }
 .btn {
@@ -423,3 +408,71 @@ select#search-engine option {
   margin-top: 5px;
   height: 1.2em; /* Reserve space even when empty */
 }
+
+    .btn-gradient {
+      /* Remove default button styles */
+      border: none;
+      outline: none;
+      cursor: pointer;
+
+      /* Dimensions */
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white; /* Text color on top of gradient */
+      border-radius: 8px; /* Adjust to match your theme */
+
+      /* Background setup for animation */
+  background: linear-gradient(45deg, #ff6b6b, #f06595, #cc5de8, #845ef7, #5c7cfa, #339af0, #22b8cf, #20c997, #51cf66, #94d82d, #fcc419, #ff922b);
+      background-size: 300% 300%; /* Make the gradient larger than the button */
+      background-position: 0% 50%; /* Start the gradient animation position */
+
+      /* Animation properties */
+      transition: all 0.3s ease; /* Smooth transition for other properties */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+      position: relative; /* Needed for potential pseudo-element effects */
+      overflow: hidden; /* Contain any overflow from animation */
+    }
+
+    /* The keyframe animation for the gradient */
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Apply the animation when the button is idle */
+    .btn-gradient {
+      animation: gradientShift 8s ease infinite; /* Duration, timing, and infinite loop */
+    }
+
+    /* Pause the animation slightly on hover for a subtle effect */
+    .btn-gradient:hover {
+      animation-duration: 4s; /* Speed up animation on hover */
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+      transform: translateY(-2px); /* Lift the button slightly */
+    }
+
+    /* Slightly press down the button when clicked */
+    .btn-gradient:active {
+      transform: translateY(1px); /* Push button down */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Reduce shadow */
+    }
+
+    /* Optional: Add a slight inner glow effect on focus (for accessibility) */
+    .btn-gradient:focus {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5), 0 4px 15px rgba(0, 0, 0, 0.2); /* Inner glow + original shadow */
+    }
+
+    .data-btn {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }

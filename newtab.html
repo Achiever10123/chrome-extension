@@ -31,7 +31,7 @@
           Good day
         </h1>
         <div id="clock" class="clock" aria-live="polite" role="timer"></div>
-        <button id="settings-btn" class="btn small" aria-label="Open Settings">⚙️ Settings</button>
+        <button id="settings-btn" class="btn small btn-gradient" aria-label="Open Settings">⚙️ Settings</button>
       </header>
 
       <!-- Main Content Area -->
@@ -107,9 +107,11 @@
         </section>
       </main>
     </div>
-    <button id="export-btn">Export Data</button>
+    <div class="data-btn">
+      <button class="btn-gradient" id="export-btn">Export Data</button>
     <input type="file" id="import-input" accept=".json" style="display: none" />
-    <button id="import-btn">Import Data</button>
+    <button class="btn-gradient" id="import-btn">Import Data</button>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
