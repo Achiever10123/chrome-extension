@@ -156,8 +156,9 @@ background-elements::after {
   transition: background 0.3s ease, border 0.3s ease;
 }
 .panel:hover {
-  background: rgba(255, 255, 255, 0.35);
+  cursor: grab;
 }
+
 .panel h2 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -308,4 +309,11 @@ background-elements::after {
   text-decoration: line-through;
   color: var(--muted-color);
   opacity: 0.7;
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-size: 0.875rem;
+  margin-top: 5px;
+  height: 1.2em; /* Reserve space even when empty */
 }

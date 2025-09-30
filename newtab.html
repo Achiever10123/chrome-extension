@@ -31,6 +31,7 @@
           Good day
         </h1>
         <div id="clock" class="clock" aria-live="polite" role="timer"></div>
+        <button id="settings-btn" class="btn small" aria-label="Open Settings">⚙️ Settings</button>
       </header>
 
       <!-- Main Content Area -->
@@ -45,6 +46,7 @@
               class="input-field"
               aria-label="Search input"
             />
+            <div id="search-error" class="error-message"></div>
             <select
               id="search-engine"
               class="input-field"
@@ -80,6 +82,7 @@
               class="input-field small"
               aria-label="Shortcut URL"
             />
+            <div id="shortcut-error" class="error-message"></div>
             <button type="submit" class="btn small">Add</button>
           </form>
         </section>
@@ -95,6 +98,7 @@
               class="input-field"
               aria-label="To-do input"
             />
+            <div id="todo-error" class="error-message"></div>
             <button type="submit" class="btn small">Add</button>
           </form>
           <ul id="todo-list" class="todo-list">
@@ -103,7 +107,16 @@
         </section>
       </main>
     </div>
-
+    <div class="stats">
+      <p>Shortcuts: <span id="stats-shortcuts">0</span></p>
+      <p>
+        Tasks Done: <span id="stats-tasks-done">0</span> /
+        <span id="stats-tasks-total">0</span>
+      </p>
+    </div>
+    <button id="export-btn">Export Data</button>
+    <input type="file" id="import-input" accept=".json" style="display: none" />
+    <button id="import-btn">Import Data</button>
     <script src="script.js"></script>
   </body>
 </html>
