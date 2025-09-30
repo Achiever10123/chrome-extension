@@ -48,7 +48,7 @@ chrome.storage.sync.get(["userName", "defaultSearch", "bgType", "bgImage"], (set
 
   // Load settings and initialize
   chrome.storage.sync.get(["userName", "defaultSearch"], (settings) => {
-    const userName = settings.userName || "Silent";
+    const userName = settings.userName || "";
     const defaultSearch =
       settings.defaultSearch || "https://www.google.com/search?q=";
     searchEngineSelect.value = defaultSearch;

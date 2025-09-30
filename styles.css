@@ -7,6 +7,50 @@
   --glass-border: rgba(255, 255, 255, 0.6);
   --muted-color: #90a4ae;
 }
+
+:root, :root[data-theme="default"] {
+  --bg-color: #0a1124;
+  --primary-color: #e3e8ff;
+  --accent-color: #1a237e;
+  --text-light: #e3e8ff;
+  --glass-bg: rgba(20, 24, 54, 0.85);
+  --glass-border: rgba(35, 40, 80, 0.7);
+  --muted-color: #5c6bc0;
+}
+
+/* Aqua Light Theme */
+:root[data-theme="aqua"] {
+  --bg-color: #e0f7fa; /* Light aqua background */
+  --primary-color: #00796b; /* Dark teal text */
+  --accent-color: #26c6da; /* Bright teal accent */
+  --text-light: #00796b; /* Dark teal for light backgrounds */
+  --glass-bg: rgba(255, 255, 255, 0.25); /* Less opaque white for glass */
+  --glass-border: rgba(255, 255, 255, 0.6); /* Lighter border */
+  --muted-color: #90a4ae; /* Muted grey-blue */
+}
+
+/* Light Mode Theme */
+:root[data-theme="light"] {
+  --bg-color: #ffffff; /* Pure white background */
+  --primary-color: #333333; /* Dark grey text */
+  --accent-color: #007bff; /* Bootstrap blue accent */
+  --text-light: #ffffff; /* White text on dark buttons/badges */
+  --glass-bg: rgba(240, 240, 240, 0.6); /* Light grey semi-transparent */
+  --glass-border: rgba(200, 200, 200, 0.7); /* Grey border */
+  --muted-color: #6c757d; /* Muted grey */
+}
+
+/* Dark Mode Theme (Alternative to default) */
+:root[data-theme="dark"] {
+  --bg-color: #121212; /* Very dark background */
+  --primary-color: #e0e0e0; /* Light grey text */
+  --accent-color: #bb86fc; /* Purple accent (Material Design) */
+  --text-light: #e0e0e0; /* Light grey */
+  --glass-bg: rgba(30, 30, 30, 0.7); /* Dark semi-transparent */
+  --glass-border: rgba(60, 60, 60, 0.7); /* Darker border */
+  --muted-color: #9e9e9e; /* Muted grey */
+}
+
 * {
   box-sizing: border-box;
 }
@@ -18,6 +62,9 @@ body {
   color: var(--primary-color);
   padding: 30px 15px;
   overflow: auto;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 .background-elements {
   position: fixed;
@@ -187,15 +234,74 @@ background-elements::after {
   border: 1px solid var(--glass-border);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.4);
-  color: var(--primary-color);
+  color: black;
   transition: border-color 0.3s ease, background 0.3s ease;
   flex-grow: 1;
   font-size: 1rem;
+}
+
+.input-field::placeholder {
+  color: var(--text-light);
 }
 .input-field:focus {
   outline: 2px solid var(--accent-color);
   border-color: var(--accent-color);
   background: rgba(255, 255, 255, 0.8);
+}
+
+/* Style the search engine dropdown specifically */
+select#search-engine {
+  /* Use the same styling as your other input fields for consistency */
+  padding: 12px 20px; /* Match .input-field */
+  border: 1px solid var(--glass-border); /* Match .input-field */
+  border-radius: 999px; /* Match .input-field */
+  background: rgba(255, 255, 255, 0.4); /* Match .input-field */
+  color: var(--primary-color); /* Match .input-field */
+  transition: border-color 0.3s ease, background 0.3s ease; /* Match .input-field */
+  font-size: 1rem; /* Match .input-field */
+  /* Ensure text is not selectable */
+  user-select: none;
+  /* Remove default dropdown arrow (optional, see below) */
+  appearance: none; /* Standard property */
+  -webkit-appearance: none; /* For older WebKit browsers */
+  -moz-appearance: none; /* For older Firefox versions */
+  /* Add custom arrow (optional, see below) */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center; /* Position arrow */
+  background-size: 16px; /* Size of arrow */
+  padding-right: 45px; /* Make space for the arrow */
+  cursor: pointer; /* Indicate it's clickable */
+  /* Ensure text alignment */
+  text-align: left; /* Ensure text starts left */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  white-space: nowrap; /* Prevent text wrapping inside the select */
+}
+
+/* Focus state for the search engine dropdown */
+select#search-engine:focus {
+  outline: 2px solid var(--accent-color); /* Match .input-field:focus */
+  border-color: var(--accent-color); /* Match .input-field:focus */
+  background: rgba(255, 255, 255, 0.8); /* Match .input-field:focus */
+}
+
+/* Hover state for the search engine dropdown */
+select#search-engine:hover {
+  /* You can add hover effects here if desired, similar to focus */
+  /* For example, a slight change in background: */
+  background: rgba(255, 255, 255, 0.55); /* Slightly lighter than default */
+}
+
+/* Optional: Style the dropdown options (limited support) */
+/* Note: Styling options heavily depends on the browser and is not fully standardized */
+/* This might work in some browsers but not consistently across all */
+select#search-engine option {
+  background-color: var(--glass-bg); /* Use panel background */
+  color: var(--primary-color); /* Use primary text color */
+  /* Padding might not work consistently */
+  /* padding: 5px; */
+  /* Font styles usually work */
+  font-size: 0.9rem;
 }
 .btn {
   padding: 12px 24px;
@@ -205,7 +311,7 @@ background-elements::after {
   cursor: pointer;
   transition: background 0.3s ease, transform 0.1s ease;
   background: var(--primary-color);
-  color: var(--text-light);
+  color: black;
   white-space: nowrap;
 }
 .btn:hover {
