@@ -16,10 +16,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchError = document.getElementById("search-error");
   const shortcutError = document.getElementById("shortcut-error");
   const todoError = document.getElementById("todo-error");
-chrome.storage.sync.get(["userName", "defaultSearch"], (settings) => {
+chrome.storage.sync.get(["userName", "defaultSearch", "bgType", "bgImage"], (settings) => {
     const defaultSearch =
       settings.defaultSearch || "https://www.google.com/search?q=";
     searchEngineSelect.value = defaultSearch;
+    const bgType = settings.bgType || 'default';
+    const bgImage = settings.bgImage;
+
+    if (bgType === 'custom' && bgImage) {
+        document.body.style.backgroundImage = `url(${bgImage})`;
+        document.body.style.backgroundSize = 'cover';
+         document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
+    } else {
+      document.body.style.backgroundImage = 'none';
+    }
   });
 
   document.getElementById("settings-btn").addEventListener("click", () => {

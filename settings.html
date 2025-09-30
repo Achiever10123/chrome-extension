@@ -52,6 +52,8 @@
     <select id="theme">
       <option value="default">Liquid Glass (Default)</option>
       <option value="aqua">Aqua Light</option>
+      <option value="dark">Dark Mode</option>
+      <option value="light">Light Mode</option>
     </select>
     <label for="default-search">Default Search Engine</label>
     <select id="default-search">
@@ -59,6 +61,27 @@
       <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
       <option value="https://www.bing.com/search?q=">Bing</option>
     </select>
+
+    <label for="bg-type">Background Type</label>
+    <select id="bg-type">
+      <option value="default">Default</option>
+      <option value="custom">Custom Image</option>
+      <!-- Add more predefined themes here if desired -->
+    </select>
+
+    <div id="custom-bg-section" style="display: none">
+      <label for="bg-image-upload">Upload Background Image</label>
+      <input type="file" id="bg-image-upload" accept="image/*" />
+      <label for="bg-image-url">Or Enter Image URL</label>
+      <input
+        type="url"
+        id="bg-image-url"
+        placeholder="https://example.com/image.jpg"
+      />
+      <div id="bg-preview"></div>
+      <!-- Preview container -->
+    </div>
+
     <button class="btn" id="save-btn">Save Settings</button>
     <div class="status" id="status"></div>
     <script src="settings.js"></script>
