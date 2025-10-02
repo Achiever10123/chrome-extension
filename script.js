@@ -12,6 +12,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const todoForm = document.getElementById("todo-form");
   const todoInput = document.getElementById("todo-input");
   const todoList = document.getElementById("todo-list");
+  if (typeof kursor !== 'undefined') {
+    const kursorInstance = new kursor({
+      type: 1, // Choose cursor type (1-4)
+      color: '#e3e8ff', // Cursor color
+      removeDefaultCursor: true, // Hide the default cursor
+      opacity: 1, // Cursor opacity
+      size: 20, // Cursor size
+      stroke: 2, // Stroke width
+      strokeColor: '#ffffff',
+      zIndex: 9999,
+      cursor: 'pointer'
+    });
+    console.log('Kursor initialized:', kursorInstance);
+  } else {
+    console.error('Kursor library is not loaded.');
+  }
+
   // Error message elements
   const searchError = document.getElementById("search-error");
   const shortcutError = document.getElementById("shortcut-error");
@@ -428,3 +445,16 @@ spanClose.addEventListener("click", closeModal);
 window.addEventListener("click", (event) => {
    if (event.target === helpModal) { closeModal(); } 
   });
+
+
+
+  new kursor({
+        type: 1, // Choose cursor type (1-4)
+        color: '#26c6da', // Cursor color
+        removeDefaultCursor: true, // Hide the default cursor
+        opacity: 0.8, // Cursor opacity
+        size: 20, // Cursor size
+        stroke: 2, // Stroke width
+        strokeColor: '#ffffff',
+        zIndex: 9999
+      });

@@ -211,9 +211,7 @@ background-elements::after {
   padding: 25px;
   transition: background 0.3s ease, border 0.3s ease;
 }
-.panel:hover {
-  cursor: grab;
-}
+
 
 .panel h2 {
   font-size: 1.5rem;
