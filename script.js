@@ -12,6 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const todoForm = document.getElementById("todo-form");
   const todoInput = document.getElementById("todo-input");
   const todoList = document.getElementById("todo-list");
+
+  // Error message elements
+  const searchError = document.getElementById("search-error");
+  const shortcutError = document.getElementById("shortcut-error");
+  const todoError = document.getElementById("todo-error");
+
+  // --- Kursor Initialization (at the top of the DOMContentLoaded block) ---
   if (typeof kursor !== 'undefined') {
     const kursorInstance = new kursor({
       type: 1, // Choose cursor type (1-4)
@@ -29,10 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error('Kursor library is not loaded.');
   }
 
-  // Error message elements
-  const searchError = document.getElementById("search-error");
-  const shortcutError = document.getElementById("shortcut-error");
-  const todoError = document.getElementById("todo-error");
+  // --- Load Background Settings ---
   chrome.storage.sync.get(
     ["userName", "defaultSearch", "bgType", "bgImage"],
     (settings) => {
@@ -53,11 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 
+  // --- Settings Button ---
   document.getElementById("settings-btn").addEventListener("click", () => {
     chrome.runtime.openOptionsPage();
   });
 
-  // Clear errors on input
+  // --- Clear errors on input ---
   const clearError = (el) => () => {
     el.textContent = "";
   };
@@ -66,11 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
   shortcutUrlInput.addEventListener("input", clearError(shortcutError));
   todoInput.addEventListener("input", clearError(todoError));
 
-  // Load settings and initialize
+  // --- Load Settings and Initialize Core Features ---
   chrome.storage.sync.get(["userName", "defaultSearch"], (settings) => {
     const userName = settings.userName || "";
     const defaultSearch =
-      settings.defaultSearch || "https://www.google.com/search?q=";
+      settings.defaultSearch || "  https://www.google.com/search?q=";
     searchEngineSelect.value = defaultSearch;
 
     // Clock & Greeting updater
@@ -122,8 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // === Shortcuts ===
     let shortcuts = JSON.parse(localStorage.getItem("shortcuts")) || [
-      { name: "YouTube", url: "https://youtube.com" },
-      { name: "X", url: "https://x.com" },
+      { name: "YouTube", url: "  https://youtube.com  " },
+      { name: "X", url: "https://x.com  " },
     ];
 
     const getFaviconUrl = (url) => {
@@ -371,90 +376,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderTodos();
   });
-});
 
-document.addEventListener("keydown", (e) => {
-  // Focus search on "/"
-  if (e.key === "/" && e.target.tagName !== "INPUT") {
-    e.preventDefault();
-    searchInput.focus();
-  }
-
-  // Add new todo on "T"
-  if (e.key === "t" && e.ctrlKey) {
-    e.preventDefault();
-    todoInput.focus();
-  }
-
-  // Focus shortcut name on "S"
-  if (e.key === "s" && e.ctrlKey) {
-    e.preventDefault();
-    shortcutNameInput.focus();
-  }
-});
-
-document.getElementById("export-btn").addEventListener("click", () => {
-  chrome.storage.sync.get(["shortcuts", "todos"], (data) => {
-    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "silenttab-backup.json";
-    a.click();
-  });
-});
-document.getElementById("import-btn").addEventListener("click", () => {
-  document.getElementById("import-input").click();
-});
-document.getElementById("import-input").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    try {
-      const data = JSON.parse(event.target.result);
-      chrome.storage.sync.set(data, () => {
-        alert("Data imported successfully!");
-      });
-    } catch (e) {
-      alert("Invalid file format.");
+  // === Keyboard Shortcuts ===
+  document.addEventListener("keydown", (e) => {
+    // Focus search on "/"
+    if (e.key === "/" && e.target.tagName !== "INPUT") {
+      e.preventDefault();
+      searchInput.focus();
     }
-  };
-  reader.readAsText(file);
-});
 
-const helpModal = document.getElementById("help-modal");
-const helpBtn = document.getElementById("help-btn");
-const spanClose = document.querySelector(".close");
-const body = document.body;
+    // Add new todo on "T"
+    if (e.key === "t" && e.ctrlKey) {
+      e.preventDefault();
+      todoInput.focus();
+    }
 
-const openModal = () => { 
-  helpModal.style.display = "block"; 
-  body.style.overflow = "hidden"; // Hide the main page scrollbar 
-   };
-
-   const closeModal = () => { 
-    helpModal.style.display = "none"; 
-    body.style.overflow = "auto";  
-    };
-
-
-helpBtn.addEventListener("click", openModal);
-
-spanClose.addEventListener("click", closeModal);
-
-window.addEventListener("click", (event) => {
-   if (event.target === helpModal) { closeModal(); } 
+    // Focus shortcut name on "S"
+    if (e.key === "s" && e.ctrlKey) {
+      e.preventDefault();
+      shortcutNameInput.focus();
+    }
   });
 
+  // === Export/Import Buttons (Outside main settings sync block if they don't need those specific settings) ===
+  document.getElementById("export-btn").addEventListener("click", () => {
+    chrome.storage.sync.get(["shortcuts", "todos"], (data) => {
+      const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "silenttab-backup.json";
+      a.click();
+    });
+  });
+  document.getElementById("import-btn").addEventListener("click", () => {
+    document.getElementById("import-input").click();
+  });
+  document.getElementById("import-input").addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = JSON.parse(event.target.result);
+        chrome.storage.sync.set(data, () => {
+          alert("Data imported successfully!");
+        });
+      } catch (e) {
+        alert("Invalid file format.");
+      }
+    };
+    reader.readAsText(file);
+  });
 
+  // === Help Modal (Inside DOMContentLoaded) ===
+  const helpModal = document.getElementById("help-modal");
+  const helpBtn = document.getElementById("help-btn"); // This should now find the element
+  const spanClose = document.querySelector(".close"); // This finds the span with class 'close' inside the modal
+  const body = document.body;
 
-  new kursor({
-        type: 1, // Choose cursor type (1-4)
-        color: '#26c6da', // Cursor color
-        removeDefaultCursor: true, // Hide the default cursor
-        opacity: 0.8, // Cursor opacity
-        size: 20, // Cursor size
-        stroke: 2, // Stroke width
-        strokeColor: '#ffffff',
-        zIndex: 9999
-      });
+  const openModal = () => {
+    helpModal.style.display = "block";
+    body.style.overflow = "hidden"; // Hide the main page scrollbar
+  };
+
+  const closeModal = () => {
+    helpModal.style.display = "none";
+    body.style.overflow = "auto"; // Show the main page scrollbar again
+  };
+
+  // Ensure helpBtn exists before adding listener
+  if (helpBtn) {
+    helpBtn.addEventListener("click", openModal);
+  } else {
+    console.error("Help button element with ID 'help-btn' not found in the HTML.");
+  }
+
+  // Ensure spanClose exists before adding listener
+  if (spanClose) {
+    spanClose.addEventListener("click", closeModal);
+  } else {
+    console.error("Close span element with class 'close' not found in the HTML.");
+  }
+
+  // Close modal if clicked outside the content
+  window.addEventListener("click", (event) => {
+    if (event.target === helpModal) {
+      closeModal();
+    }
+  });
+
+}); 
